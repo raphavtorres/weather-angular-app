@@ -1,0 +1,39 @@
+<div class="container">
+  <form [formGroup]="cityForm">
+    <app-input
+      formControlName="name"
+      inputName="city"
+      type="text"
+      label="Nome da cidade"
+      placeholder="Campinas"
+    >
+    <button
+      class="btn-primary"
+      (click)="submit()"
+    >
+      Search
+    </button>
+    </app-input>
+  </form>
+
+  <div class="header">
+    <img src="../assets/heat-landscape-img.jpg" alt="">
+    <img src="../assets/cold-landscape-img.jpg" alt="">
+
+    <div class="weather-data">
+      <div class="location">Campinas</div>
+      <div class="temperature">{{ 14.40 | number: '1.0-0' }}°C</div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="more-info-label">
+      More information
+    </div>
+    <div class="more-info-container">
+      <app-weather-info icon="bootstrapThermometerSnow" label="min" unit="°C"></app-weather-info>
+      <app-weather-info icon="bootstrapThermometerSun" label="max" unit="°C"></app-weather-info>
+      <app-weather-info icon="bootstrapWater" label="humidity" unit="%"></app-weather-info>
+      <app-weather-info icon="bootstrapWind" label="wind" unit="km/h"></app-weather-info>
+    </div>
+  </div>
+</div>
