@@ -1,15 +1,17 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
-import { 
-  bootstrapThermometerSnow, 
-  bootstrapThermometerSun, 
-  bootstrapWater, 
-  bootstrapWind 
+import {
+  bootstrapThermometerSnow,
+  bootstrapThermometerSun,
+  bootstrapWater,
+  bootstrapWind
 } from '@ng-icons/bootstrap-icons';
 import { WeatherInfoComponent } from '../weather-info/weather-info.component';
-import { DecimalPipe } from "@angular/common";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, DecimalPipe } from "@angular/common";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WeatherService } from '../../services/weather.service';
+import { InputComponent } from '../input/input.component';
+import { WeatherData } from '../../models/weather.model';
 
 
 interface CityForm {
@@ -22,20 +24,24 @@ interface CityForm {
   imports: [
     WeatherInfoComponent,
     ReactiveFormsModule,
-    DecimalPipe
+    FormsModule,
+    DecimalPipe,
+    InputComponent,
+    CommonModule
   ],
   providers: [
-    provideIcons({ 
-      bootstrapThermometerSnow, 
-      bootstrapThermometerSun, 
+    provideIcons({
+      bootstrapThermometerSnow,
+      bootstrapThermometerSun,
       bootstrapWater,
-      bootstrapWind 
+      bootstrapWind
     })
   ],
   templateUrl: './container.component.html',
   styleUrl: './container.component.scss'
 })
 export class ContainerComponent {
+  @Input("temperature")
   @Output("submit") onSubmit = new EventEmitter();
 
   cityForm!: FormGroup<CityForm>;
@@ -48,11 +54,13 @@ export class ContainerComponent {
     })
   }
 
+  weatherData?: WeatherData;
+
   submit() {
     this.weatherService.getWeatherData(
       this.cityForm.value.city
     ).subscribe({
-      next: (response) => console.log(response),
+      next: (response) => this.weatherData = response,
       error: (err) => console.log(err)
     })
   }

@@ -1,12 +1,13 @@
 import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
-type InputTypes = "text" | "email" | "password";
+type InputTypes = "text" | "city";
+
 @Component({
   selector: 'app-input',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    // ReactiveFormsModule
   ],
   providers: [
     {
@@ -15,8 +16,8 @@ type InputTypes = "text" | "email" | "password";
       multi: true
     }
   ],
-  templateUrl: './primary-input.component.html',
-  styleUrl: './primary-input.component.scss'
+  templateUrl: './input.component.html',
+  styleUrl: './input.component.scss'
 })
 export class InputComponent implements ControlValueAccessor {
   @Input() type: InputTypes = "text";
@@ -43,6 +44,4 @@ export class InputComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
-
-  setDisabledState(isDisabled: boolean): void {}
 }

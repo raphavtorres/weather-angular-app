@@ -13,6 +13,6 @@ import { NgIconComponent } from '@ng-icons/core';
 export class WeatherInfoComponent {
   @Input() icon!: string;
   @Input() label!: string;
-  // @Input() text!: string;
+  @Input() text!: string;
   @Input() unit!: string;
 }
